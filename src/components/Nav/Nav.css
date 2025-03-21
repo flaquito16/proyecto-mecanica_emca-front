@@ -1,0 +1,58 @@
+.Nav{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Asegura que está por encima del contenido */
+    overflow-y: auto;
+    pointer-events: none; /* Evita que bloquee clicks */
+}
+
+.nav{
+    width: 13%;
+    background-color: #99acbd;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+}
+
+.name{
+    color: white;
+    text-align: center;
+    margin-top: 29px;
+    font-size: 25px;
+}
+
+.p-li{
+    color: white;
+    margin: 4px 0px 9.9px 10px;
+}
+
+.div-li-nav{
+    flex-direction: row;
+    padding: 80px 0px 0px 0px;
+    height: 100%;
+    pointer-events: auto; /* Permite que los enlaces sí sean interactivos */
+}
+
+Link{
+    text-decoration: none;
+}
+
+li{
+    display: flex;
+    cursor: pointer;
+}
+
+li:hover{
+    background-color: #abcba2; /* Cambia el color de fondo de manera suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  
+}
+
+.img-nav{
+    width: 25px;
+    height: 25px;
+}
+

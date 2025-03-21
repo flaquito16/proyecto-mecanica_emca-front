@@ -1,0 +1,80 @@
+.creation-form{
+    width: 50%;
+    height: 100%;
+    margin-top: 8%;
+}
+
+.f-creation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.pre-cre{
+    display: flex;
+    margin: 0px 0px 0px 50px;
+}
+
+.pre-creation{
+    width: 60px;
+    height: 60px;
+}
+
+.p-vol{
+    margin: 15px 0px 0px 30px;
+    font-size: 22px;
+}
+
+.input-creation{
+    width: 350px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.input-creation:focus{
+    border-bottom: 2px solid #ff0202;
+}
+
+.btn-creation{
+  padding: 12px 24px;
+  font-size: 16px;
+  color: white;
+  background: #4192fb;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #aed1ff;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-creation:active{
+    box-shadow: 0 2px 0 #aed1ff;
+    transform: translateY(3px);
+}
+
+.toggle-password-1 {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: -2%;
+    transform: translateY(-5%);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+    color: #666;
+  }
+  
+ 
+.toggle-password-1:hover .icon {
+      color: #333;
+    }

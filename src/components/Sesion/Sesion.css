@@ -1,0 +1,94 @@
+.sesion{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    box-shadow: none;
+    width: 100%;
+    height: 100%;
+}
+
+.fondo{
+    width: 50%;
+    max-height: 100%;
+}
+
+.img-fondo{
+    width: 100%;
+    height: 955px;
+}
+
+.se-form{
+    width: 50%;
+    height: 100%;
+    margin-top: 14%;
+}
+
+.f-se{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.sesion-form{
+    margin-bottom: 35px;
+}
+
+.p-sesion{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+}
+
+.input-sesion{
+    width: 350px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.input-sesion:focus{
+    border-bottom: 2px solid #02ff4d;
+}
+
+.btn-sesion{
+    padding: 12px 24px;
+  font-size: 16px;
+  color: white;
+  background: #4192fb;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #aed1ff;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-sesion:active{
+    box-shadow: 0 2px 0 #aed1ff;
+    transform: translateY(3px);
+}
+
+.toggle-password {
+    position: absolute;
+    top: 49%;
+    margin-left: -2%;
+    transform: translateY(-5%);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+    color: #666;
+  }
+  
+ 
+.toggle-password:hover .icon {
+      color: #333;
+    }
