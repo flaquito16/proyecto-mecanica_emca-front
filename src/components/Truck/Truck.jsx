@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import './Truck.css';
 import axios from 'axios';
 import { Nav } from '../Nav/Nav';
 import filtro from '../../assets/filtrar.png';
-
+//tenga en cuenta que algunas clases las llamo igual en algunos componentes ya que, como ya tienen diseño solo pongo el nombre del classname
+//reciclado para que ya se le de el diseño ya establecido
 export const Truck = () => {
   const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
   const [showModal, setShowModal] = useState(false);
-  const [showModals, setShowModals] = useState(false);
   const [message, setMessage] = useState('');
   const [formDetails, setFormDetails] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -91,17 +92,11 @@ export const Truck = () => {
       setMessage(error.response?.data?.message || "Error al registrar");
     }
   };
+
+
   const handleNewClick = () => {
     setShowModal(true);
   };
-
-  const handleClick = () => {
-    setShowModals(true);
-  };
-
-  const handleCloseModals = () => {
-    setShowModals(false);
-  }
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -158,13 +153,15 @@ export const Truck = () => {
               </tr>
             </thead>
             <tbody>
-              {filterTruck?.map((formDetail, index) => (
-                <tr key={index}>
-                  <td>{formDetail.codigo_maquina}</td>
-                  <td>{formDetail.nombre_maquina}</td>
-                  <td>{formDetail.tareas}</td>
+              {filterTruck?.map((truck) => (
+                <tr key={truck.id_truck}>
+                  <td>{truck.codigo_maquina}</td>
+                  <td>{truck.nombre_maquina}</td>
+                  <td>{truck.tareas}</td>
                   <td>
-                    <button className='new-btn' onClick={handleClick}>Ver mas</button>
+                    <Link to={`/details/${truck.id_truck}`}>
+                    <button className='new-btn'>Ver mas</button>
+                    </Link>
                   </td>
                 </tr>
               ))}
@@ -227,62 +224,6 @@ export const Truck = () => {
           </form>
         </div>
       )}
-
-{showModals && formDetails && (
-  <div className="modal-new-historial">
-    <div className="modal-content-historial">
-      <div className="content-form-truck">
-        <p className="p-new-truck">Código Máquina:</p>
-        <p>{formDetails?.codigo_maquina}</p>
-
-        <p className="p-new-truck">Nombre Máquina:</p>
-        <p>{formDetails.nombre_maquina}</p>
-
-        <p className="p-new-truck">Código Sección:</p>
-        <p>{formDetails.codigo_seccion}</p>
-
-        <p className="p-new-truck">Nombre Sección:</p>
-        <p>{formDetails.nombre_seccion}</p>
-
-        <p className="p-new-truck">Marca:</p>
-        <p>{formDetails.marca}</p>
-
-        <p className="p-new-truck">Año de fabricación:</p>
-        <p>{formDetails.fecha_fabricacion}</p>
-
-        <p className="p-new-truck">Comprado a:</p>
-        <p>{formDetails.comprado}</p>
-
-        <p className="p-new-truck">Modelo:</p>
-        <p>{formDetails.modelo}</p>
-
-        <p className="p-new-truck">Capacidad de producción:</p>
-        <p>{formDetails.capacidad_produccion}</p>
-
-        <p className="p-new-truck">País de origen:</p>
-        <p>{formDetails.pais_origen}</p>
-
-        <p className="p-new-truck">Fabricado por:</p>
-        <p>{formDetails.fabricado}</p>
-
-        <p className="p-new-truck">Fecha de instalación:</p>
-        <p>{formDetails.fecha_instalacion}</p>
-
-        <p className="p-new-truck">N° de serie:</p>
-        <p>{formDetails.numero_serie}</p>
-      </div>
-      <div className="modal-buttons">
-        <button className="modal-btn save" type="submit">
-          Editar
-        </button>
-        <button className="modal-btn cancel" onClick={handleCloseModals}>
-          Cancelar
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
     </div>
   );
 };

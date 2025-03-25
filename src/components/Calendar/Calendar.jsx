@@ -1,12 +1,10 @@
-import React, {useRef} from 'react'
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import React, { useState} from 'react'
 import './Calendar.css'
 import { Nav } from '../Nav/Nav'
 
-export default function Calendar() {
-  const calendarRef = useRef(null)
-  
+export const Calendar = () => {
+  const [date, setDate] = useState(new Date()); 
+
   return (
     <div className='calendar'>
       <div className='div-nav'>
@@ -14,8 +12,9 @@ export default function Calendar() {
       </div>
       <div className='div-calendar'>
         <div className='container-calendar'>
-
-      <FullCalendar ref={calendarRef} plugins={[ dayGridPlugin ]}/>      
+        <h2>Selecciona una fecha</h2>
+      <Calendar onChange={setDate} value={date} />
+      <p>Fecha seleccionada: {date.toDateString()}</p>
         </div>
       </div>
     </div>

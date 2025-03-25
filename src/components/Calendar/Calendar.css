@@ -1,20 +1,110 @@
-.calendar{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    display: flex;
-}
-
-.div-calendar{
+/* Estilos generales */
+.calendar {
     display: flex;
     flex-direction: column;
-    width: 100%; 
-    padding: 0px 0px 0px 25px;
-    height: 100%;
-}
-
-.container-calendar{
-    height: 150px;
-}
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Poppins', sans-serif;
+  }
+  
+.div-calendar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100%;
+  }
+  
+  /* Contenedor del calendario */
+  .container-calendar {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  /* Título */
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* React Calendar */
+  .react-calendar {
+    border: none;
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Encabezado del calendario */
+  .react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ff758c;
+    padding: 8px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .react-calendar__navigation button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .react-calendar__navigation button:hover {
+    color: #ffdee9;
+  }
+  
+  /* Días de la semana */
+  .react-calendar__month-view__weekdays {
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Celdas de los días */
+  .react-calendar__tile {
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Hover sobre días */
+  .react-calendar__tile:hover {
+    background: #ff758c;
+    color: white;
+  }
+  
+  /* Día actual */
+  .react-calendar__tile--now {
+    background: #ffb199 !important;
+    color: white;
+  }
+  
+  /* Día seleccionado */
+  .react-calendar__tile--active {
+    background: #ff758c !important;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Texto de la fecha seleccionada */
+  p {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  

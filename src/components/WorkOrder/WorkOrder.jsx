@@ -32,7 +32,6 @@ export const WorkOrder = () => {
     .then(response => {
       setCamiones(response.data);
       if (response.data.length > 0) {
-        // setNombre(response.data[0].id);
         setFormDetails(prevData => ({ ...prevData, truckId: response.data[0].id }));
       }
     })
@@ -57,10 +56,6 @@ export const WorkOrder = () => {
     fetchWorkOrder()
   }, [])
 
-  // const handleTruckChange = (e) => {
-  //   setNombre(e.target.value);
-  //   setFormDetails({ ...formDetails, truckId: e.target.value });
-  // };
 
     const handleSubmit = async (e) => {
       e.preventDefault()
@@ -123,10 +118,9 @@ export const WorkOrder = () => {
       setShowModal(false);
     };
 
-    const filteredForms = Array.isArray(formDetails) 
-    ? formDetails.filter(form => form.selectedTruckId?.toLowerCase().includes(searchTerm.toLowerCase()))
-    : [];
-  
+  //   const filteredForms = (formDetails || []).filter(form => 
+  //     form.responsable.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <div className='work'>
@@ -168,7 +162,6 @@ export const WorkOrder = () => {
           <table className='details-table'>
             <thead>
               <tr>
-                <th>Equipo</th>
                 <th>Persona Asignada</th>
                 <th>Prioridad</th>
                 <th>Responsable</th>  
@@ -176,19 +169,18 @@ export const WorkOrder = () => {
               </tr>
             </thead>
             <tbody>
-            {Array.isArray(filteredForms) && filteredForms.map((formDetail, index) => (
-  <tr key={index}>
-    <td>{formDetail.area}</td>
-    <td>{formDetail.encargado}</td>
-    <td>{formDetail.prioridad}</td>
-    <td>{formDetail.responsable}</td>
-    <td>
-      <button className='new-btn'>editar</button>
-    </td>
-  </tr>
-))}
-
+  {Array.isArray(formDetails) && formDetails.map((formDetail, index) => (
+    <tr key={index}>
+      <td>{formDetail.encargado}</td>
+      <td>{formDetail.prioridad}</td>
+      <td>{formDetail.responsable}</td>
+      <td>
+        <button className='new-btn'>editar</button>
+      </td>
+    </tr>
+  ))}
 </tbody>
+
 
           </table>
             

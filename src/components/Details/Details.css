@@ -1,0 +1,32 @@
+.details{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-height: 100%;
+}
+
+.details-general{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px 0px 0px 25px;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-details{
+    font-size: 30px;
+}
+
+.delete-btn{
+    padding: 12px 24px;
+    font-size: 16px;
+    color: white;
+    background: red;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}

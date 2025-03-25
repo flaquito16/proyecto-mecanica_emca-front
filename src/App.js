@@ -6,14 +6,15 @@ import { Home } from './components/Pages/Home/Home.jsx';
 import { Truck } from './components/Truck/Truck.jsx';
 import { Stock } from './components/Stock/Stock.jsx';
 import { WorkOrder } from './components/WorkOrder/WorkOrder.jsx';
-import Calendar from './components/Calendar/Calendar.jsx';
 import { Section } from './components/Section/Section.jsx';
+import Calendar from 'react-calendar';
+import { Details } from './components/Details/Details.jsx';
 
 
 function App() {
   return (
       
-    <HashRouter>
+  <HashRouter>
     <Routes>
       <Route index path='/' element={<Sesion/>}></Route>
       <Route path='/nav' element={<Nav/>}></Route>
@@ -24,8 +25,9 @@ function App() {
       <Route path='/calendar' element={<Calendar/>}></Route>
       <Route path='/work' element={<WorkOrder/>}></Route>
       <Route path='/section' element={<Section/>}></Route>
+      <Route path='/details/:id' element={<Details/>}></Route>
     </Routes>
-</HashRouter>
+ </HashRouter>
   );
 }
 
