@@ -38,8 +38,10 @@ export const Truck = () => {
             headers: { 'Content-Type': 'application/json' } 
           }
         );
-        setFormDetails(response.data);
-        console.log(response.data);
+        if (response.status === 200) {
+          setFormDetails(response.data);
+          console.log(response.data);  
+        }
       } catch (error) {
         console.error(error);
       } finally {

@@ -175,7 +175,7 @@ export const WorkOrder = () => {
       <td>{formDetail.prioridad}</td>
       <td>{formDetail.responsable}</td>
       <td>
-        <button className='new-btn'>editar</button>
+        <button className='new-btn'>Ver más</button>
       </td>
     </tr>
   ))}

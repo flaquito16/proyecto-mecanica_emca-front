@@ -25,8 +25,10 @@ export const Stock = () => {
                 headers: { 'Content-Type': 'application/json' } 
               }
             );
-            setFormDetails(Array.isArray(response.data) ? response.data : []);
-            console.log(response.data);
+            if (response.status === 200) {
+              setFormDetails(Array.isArray(response.data) ? response.data : []);
+              console.log(response.data); 
+            }
           } catch (error) {
             console.error(error);
           } finally {
@@ -136,7 +138,7 @@ export const Stock = () => {
                   <td>{formDetail.cantidad}</td>
                   <td>{formDetail.precio}</td>
                   <td>
-                    <button className='new-btn'>Editar</button>
+                    <button className='new-btn'>Ver más</button>
                   </td>
                 </tr>
               ))}

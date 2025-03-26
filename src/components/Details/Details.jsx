@@ -14,7 +14,10 @@ export const Details = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/truck/${id}`);
-                setDetails(Array.isArray(response.data) ? response.data : [response.data]);
+                if (response.status === 200) {
+                    console.log('Obtener los detalles del camión');
+                    setDetails(Array.isArray(response.data) ? response.data : [response.data]);                    
+                };
             } catch (error) {
                 console.error(error);
             }
@@ -34,15 +37,18 @@ export const Details = () => {
 
     const handleDelete = async () => { 
         try {
-            await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/truck/${id}`);
-            navigate('/truck');
+        const response =  await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/truck/${id}`);
+            if (response.status === 200) {
+                setShowModal(false);
+                navigate('/truck');
+            }
         } catch (error) {
             console.error(error);
     };
     }
 
   return (
-    <div className='details'>
+     <div className='details'>
         <div className='div-nav'>
             <Nav/>
         </div>
@@ -53,8 +59,8 @@ export const Details = () => {
                 </p>
             </strong>
             {details && Array.isArray(details) ? (
-                details.map((detail) => (
-             <div className='details-general' key={detail.id_truck}>
+    details.map((detail) => (
+        <div className='details-general' key={detail.id_truck}>
             <p>
                 <strong>Codigo máquina: </strong> {detail.codigo_maquina}
             </p>
@@ -92,36 +98,52 @@ export const Details = () => {
                 <strong>Fabricado: </strong> {detail.fabricado}
             </p>
             <p>
-                <strong>Fecha de instalación: </strong> {detail.fecha_fabricacion}
+                <strong>Fecha de instalación: </strong> {detail.fecha_instalacion}
             </p>
             <p>
                 <strong>Numero de serie: </strong> {detail.numero_serie}
             </p>
+
+            <p><strong>Historial de órdenes de trabajo:</strong></p>
+            {detail.workOrders && detail.workOrders.length > 0 ? (
+                <ul>
+                    {detail.workOrders.map((order) => (
+                        <li key={order.id_work_order}>
+                            {order.descripcion} - {order.fechaInicio}
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No hay órdenes de trabajo registradas.</p>
+            )}
+
             <div className='div-buttons'>
                 <button className='new-btn'>Editar</button>
                 <button className='delete-btn' onClick={handleClickDelete}>Eliminar</button>
             </div>
         </div>
-         ))
+    ))
         ) : (
     <p>Cargando detalles...</p>
         )}  
         </div>
-        <div>
+        
             {showModal && (
-                <div className='modal-overlay'>
-                    <div className='model-content'>
+                <div className='modal-overlay-details'>
+                    <div className='model-content-details'>
                         <div className='content-form-truck'>
-                        <p>¿Estás seguro de que quieres eliminar este camión?</p>
+                            <div className='modal-header'>
+                        <p className='p-alert'>¿Estás seguro de que quieres eliminar este camión?</p>
                         <div className='modal-buttons'>
                             <button className='delete-btn' onClick={handleDelete}>Eliminar</button>
                             <button className='modal-btn cancel' onClick={handleCancel}>Cancelar</button>
+                            </div>
                         </div>
                         </div>
                     </div>
                 </div>
             )}
-        </div>
+    
     </div>
   )
 }
