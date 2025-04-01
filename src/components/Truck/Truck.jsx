@@ -105,7 +105,7 @@ export const Truck = () => {
   };
 
   const filterTruck = (formDetails || []).filter((form) =>
-    form.nombre_maquina.toLowerCase().includes(searchTerm.toLowerCase())
+    form.codigo_maquina.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -159,7 +159,20 @@ export const Truck = () => {
                 <tr key={truck.id_truck}>
                   <td>{truck.codigo_maquina}</td>
                   <td>{truck.nombre_maquina}</td>
-                  <td>{truck.tareas}</td>
+                  {truck.workOrders && truck.workOrders.length > 0 ? (
+                    <td>
+                      {truck.workOrders.map((order) => (
+                        <ul key={order.id_workOrder}>
+                          {order.descripcion}
+                        </ul>
+                      ))}
+                    </td>
+
+                    ) : (
+                      <td>
+                      <p>No hay órdenes de trabajo registradas.</p>
+                      </td>
+                  )}
                   <td>
                     <Link to={`/details/${truck.id_truck}`}>
                     <button className='new-btn'>Ver mas</button>
@@ -183,39 +196,39 @@ export const Truck = () => {
               <h3>Maquina</h3>
             <div className='content-form-truck'>
             <p className='p-new-truck'>Codigo: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={codigoMaquina} onChange={(e) => setCodigoMaquina(e.target.value)}/>
+            <input type='text' placeholder='Codigo de la maquina' className='modal-input' value={codigoMaquina} onChange={(e) => setCodigoMaquina(e.target.value)}/>
             <p className='p-new-truck'>Nombre: </p>
-            <input type='text' placeholder='Descripción' className='modal-input' value={nombreMaquina} onChange={(e) => setNombreMaquina(e.target.value)}/>
+            <input type='text' placeholder='Nombre de la maquina' className='modal-input' value={nombreMaquina} onChange={(e) => setNombreMaquina(e.target.value)}/>
             </div>
               <h3>Seccion</h3>
             <div className='content-form-truck'>
             <p className='p-new-truck'>Codigo: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={codigoSeccion} onChange={(e) => setCodigoSeccion(e.target.value)}/>
-            <p className='p-new-truck'>Nombre de la seccion: </p>
-            <input type='text' placeholder='Descripción' className='modal-input' value={nombreSeccion} onChange={(e) => setNombreSeccion(e.target.value)}/>
+            <input type='text' placeholder='Codigo de la sección' className='modal-input' value={codigoSeccion} onChange={(e) => setCodigoSeccion(e.target.value)}/>
+            <p className='p-new-truck'>Nombre: </p>
+            <input type='text' placeholder='Nombre de la sección' className='modal-input' value={nombreSeccion} onChange={(e) => setNombreSeccion(e.target.value)}/>
             </div>
               <h3>Descripcion de la maquina</h3>
             <div className='content-form-truck'>
             <p className='p-new-truck'>Marca: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={marca} onChange={(e) => setMarca(e.target.value)}/>
+            <input type='text' placeholder='Marca de la maquina' className='modal-input' value={marca} onChange={(e) => setMarca(e.target.value)}/>
             <p className='p-new-truck'>Linea: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={linea} onChange={(e) => setLinea(e.target.value)}/>
+            <input type='text' placeholder='Linea de la maquina' className='modal-input' value={linea} onChange={(e) => setLinea(e.target.value)}/>
             <p className='p-new-truck'>Año de fabricacion: </p>
-            <input type='text' placeholder='Descripción' className='modal-input' value={añoFabricacion} onChange={(e) => setAñoFabricacion(e.target.value)}/>
+            <input type='text' placeholder='Año de fabricación' className='modal-input' value={añoFabricacion} onChange={(e) => setAñoFabricacion(e.target.value)}/>
             <p className='p-new-truck'>Comprado a: </p>
-            <input type='text' placeholder='Descripción' className='modal-input' value={comprado} onChange={(e) => setComprado(e.target.value)}/>
+            <input type='text' placeholder='A quien se le compro' className='modal-input' value={comprado} onChange={(e) => setComprado(e.target.value)}/>
             <p className='p-new-truck'>Modelo: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={modelo} onChange={(e) => setModelo(e.target.value)}/>
+            <input type='text' placeholder='Modelo de la maquina' className='modal-input' value={modelo} onChange={(e) => setModelo(e.target.value)}/>
             <p className='p-new-truck'>Capacidad de produccion: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={capacidadProduccion} onChange={(e) => setCapacidadProduccion(e.target.value)}/>
+            <input type='text' placeholder='Capacidad de la maquina' className='modal-input' value={capacidadProduccion} onChange={(e) => setCapacidadProduccion(e.target.value)}/>
             <p className='p-new-truck'>Pais de origen: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={paisOrigen} onChange={(e) => setPaisOrigen(e.target.value)}/>
+            <input type='text' placeholder='Pais de origen' className='modal-input' value={paisOrigen} onChange={(e) => setPaisOrigen(e.target.value)}/>
             <p className='p-new-truck'>Fabricado por: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={fabricado} onChange={(e) => setFabricado(e.target.value)}/>
+            <input type='text' placeholder='Fabricado por' className='modal-input' value={fabricado} onChange={(e) => setFabricado(e.target.value)}/>
             <p className='p-new-truck'>Fecha de instalacion: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={fechaInstalacion} onChange={(e) => setFechaInstalacion(e.target.value)}/>
+            <input type='date' placeholder='Fecha de instalacion' className='modal-input' value={fechaInstalacion} onChange={(e) => setFechaInstalacion(e.target.value)}/>
             <p className='p-new-truck'>N° de serie: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={numeroSerie} onChange={(e) => setNumeroSerie(e.target.value)}/>
+            <input type='text' placeholder='Numero de serie' className='modal-input' value={numeroSerie} onChange={(e) => setNumeroSerie(e.target.value)}/>
             </div>
             <div className='modal-buttons'>
               <button className='modal-btn save' type='submit'>Guardar</button>

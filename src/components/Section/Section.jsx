@@ -8,7 +8,7 @@ export const Section = () => {
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(true);
-  const [formDetails, setFormDetails] = useState(null);
+  const [formDetails, setFormDetails] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,8 +20,12 @@ export const Section = () => {
             headers: { 'Content-Type': 'application/json' }
           }
         );
-        setFormDetails(response.data);
-        console.log(response.data);
+        console.log("Datos recibidos:", response.data); // Verifica si los datos están llegando
+
+        if (response.status === 200) {   
+          setFormDetails(response.data);
+          console.log(response.data);
+        }
       } catch (error) {
         console.error(error);
       } finally {
@@ -70,74 +74,75 @@ const handleClose = () => {
   setShowModal(false);
 };
 
+
+
+
+//reciclo mucho los classname para dar el mismo diseño 
   return (
     <div className='stock'>
-        <div className='div-nav'>
-          <Nav/>
-        </div>
-        <div className='div-general'>
-          <strong>
-            <p className='name-meca'>Sección</p>
-          </strong>
-          <div className=''>
-            <button className='new-btn' onClick={handleClick}>
-              Agregar Sección
-            </button>
-          </div>
-          <div className='main-truck'>
-            {loading ? (
-              <p>Cargando...</p>
-            ) : (
-              <>
-              <table className='details-table'>
-                <thead>
-                  <tr>Nombre de la sección</tr>
-                  <tr>Acciones</tr>
-                </thead>
-                <tbody>
-                  {formDetails.map((formDetails, index) =>(
-                    <tr key={index}>
-                      <td>{formDetails.nombre_seccion}</td>
-                      <td>
-                        <button className='new-btn'>Editar</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>   
-              </>
-            )}
-          </div>
-
-          {showModal && (
-            <div className='modal-ovrlay'>
-                <form onSubmit={handleSubmit}>
-              <div className='modal-content'>
-                <span className='close'>
-                  <p>Secciones</p>
-                </span>
-                <div className='content-form-truck'>
-
-                  <label>Nombre</label>
-                  <input
-                    type='text'
-                     className='modal-input'
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
-                  />
-                </div>
-                  <div className='modal-buttons'>
-                  <button className='modal-btn save'>Guardar</button>
-                    <button className='modal-btn cancel' type='button' onClick={handleClose}>
-                      Cancelar
-                    </button>
-                  </div>
-                <p>{message}</p>
-              </div>
-                </form>
-            </div>
-          )}
-        </div>
+    <div className='div-nav'>
+        <Nav/>
     </div>
+    <div className='div-general'>
+        <strong>
+        <p className='name-meca'>Secciones</p>
+        </strong>
+        <div className='filter-truck'>
+      <strong>
+        <p className='p-num'>8</p>
+      </strong>
+      <div className='div-search'>
+        <button className='new-btn' onClick={handleClick}>Nuevo</button>
+      </div>
+    </div> 
+    <div className='main-truck'>
+      {loading ? ( 
+      <p>Cargando...</p> ) : (
+        <>
+      <table className='details-table'>
+        <thead>
+          <tr>
+            <th>Nombre de sección</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+  {formDetails?.map((from) => (
+    <tr key={from.id_section}>
+<td>{from.nombre_seccion}</td>
+<td>
+        <button className='new-btn'>Ver más</button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
+      </table>
+        </>
+        )
+       }
+    </div>
+    </div>
+    
+  {showModal && (
+    <div className='modal-overlay'>
+      <form action="" onSubmit={handleSubmit}>
+      <div className='modal-content'>
+        <h1>Agregar Una Nueva Sección</h1>
+          <h3>Detalles</h3>
+        <div className='content-form-truck'>
+        <p className='p-new-truck'>Nombre de la sección: </p>
+        <input type='text' placeholder='Nombre del equipo' className='modal-input' value={nombre} onChange={(e) => setNombre(e.target.value)}/>
+        </div>
+        <div className='modal-buttons'>
+          <button className='modal-btn save'>Guardar</button>
+          <button className='modal-btn cancel' onClick={handleClose}>Cancelar</button>
+        </div>
+      </div>
+    <p>{message}</p> 
+      </form>
+    </div>
+  )}
+</div>
   )
 }

@@ -68,6 +68,14 @@ export const Nav = () => {
           </Link>
         </div> 
         <div className='div-li-nav'>
+          <Link to={'/operator'}>
+          <li>
+          <img className='img-nav' src={reporte} alt="" />
+          <p className='p-li'>Operadores</p>
+          </li>
+          </Link>
+        </div> 
+        <div className='div-li-nav'>
           <li>
           <img className='img-nav' src={reporte} alt="" />
           <p className='p-li'>Informes</p>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Nav } from '../Nav/Nav';
 import filtro from '../../assets/filtrar.png';
+import { Link } from 'react-router-dom';
 import './WorkOrder.css'
 import { useNavigate} from 'react-router-dom'
 import axios from 'axios';
@@ -17,7 +18,6 @@ export const WorkOrder = () => {
   const [tipoMantenimiento, setTipoMantenimiento] = useState('');
   const [fechaSolicitud, setFechaSolicitud] = useState('');
   const [fechaInicio, setFechaInicio] = useState('');
-  const [fechaCierre, setFechaCierre] = useState('');
   const [prioridad, setPrioridad] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const navigate = useNavigate();
@@ -59,14 +59,8 @@ export const WorkOrder = () => {
 
     const handleSubmit = async (e) => {
       e.preventDefault()
-
-         // Validación de `truckId`
-  //   if (!truckId || isNaN(truckId)) {
-  //     alert("Debes seleccionar un camión válido");
-  //     return;
-  // }
       
-      if ( !prioridad || !descripcion || !tipoMantenimiento || !fechaInicio || !fechaCierre || !fechaSolicitud || !responsable || !encargado || !operario || !area) { 
+      if ( !prioridad || !descripcion || !tipoMantenimiento || !fechaInicio || !fechaSolicitud || !responsable || !encargado || !operario || !area) { 
         setMessage('Llene todos los campos')
         return;
       }
@@ -77,9 +71,8 @@ export const WorkOrder = () => {
         encargado,
         responsable,
         tipoMantenimiento,
-        fechaSolicitud,
-        fechaInicio,
-        fechaCierre,
+        fechaSolicitud: new Date(fechaSolicitud),  // Enviando como objeto Date
+        fechaInicio: new Date(fechaInicio),  // Enviando como objeto Date
         prioridad,
         descripcion,
         truckId: parseInt(selectedTruckId),
@@ -118,10 +111,10 @@ export const WorkOrder = () => {
       setShowModal(false);
     };
 
-  //   const filteredForms = (formDetails || []).filter(form => 
-  //     form.responsable.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
+    const filteredForms = Array.isArray(formDetails) 
+    ? formDetails.filter(form => form.encargado?.toLowerCase().includes(searchTerm.toLowerCase()))
+    : [];
+  
   return (
     <div className='work'>
         <div className='div-nav'>
@@ -162,28 +155,37 @@ export const WorkOrder = () => {
           <table className='details-table'>
             <thead>
               <tr>
+              <th>Maquina</th>
                 <th>Persona Asignada</th>
                 <th>Prioridad</th>
                 <th>Responsable</th>  
                 <th>Acciones</th>            
               </tr>
             </thead>
-            <tbody>
-  {Array.isArray(formDetails) && formDetails.map((formDetail, index) => (
-    <tr key={index}>
-      <td>{formDetail.encargado}</td>
-      <td>{formDetail.prioridad}</td>
-      <td>{formDetail.responsable}</td>
-      <td>
+    <tbody>
+          {filteredForms?.map((work) => (
+        <tr key={work.id_workOrder}> 
+        {work.truck ? (  // Verifica que `work.truck` exista
+          <td>
+          <ul>
+            {work.truck.codigo_maquina}
+          </ul>
+        </td>
+        ) : (
+          <td>No hay camiones creados.</td>
+        )} 
+        <td>{work.encargado}</td>
+        <td>{work.prioridad}</td>
+        <td>{work.responsable}</td>
+        <td>
+        <Link to={`/detailsWork/${work.id_workOrder}`}>
         <button className='new-btn'>Ver más</button>
+        </Link>
       </td>
     </tr>
   ))}
-</tbody>
-
-
+    </tbody>
           </table>
-            
             </>
           )}
         </div>
@@ -192,7 +194,7 @@ export const WorkOrder = () => {
         <div className='modal-overlay'>
           <form onSubmit={handleSubmit}>
           <div className='modal-content'>
-            <h1>Agregar orden de trabajo</h1>
+            <h1>Agregar orden de </h1>
             <div className='content-form-truck'>
             <p className='p-new-truck'>Nombre: </p>
             <select name="truckId" value={selectedTruckId}  onChange={(e) => setSelectedTruckId(e.target.value)}>
@@ -240,12 +242,9 @@ export const WorkOrder = () => {
               <p className='p-new-truck'>Fecha de solicitud: </p>   
             <input type='date' placeholder='Descripción' className='modal-input' value={fechaSolicitud} onChange={(e) => setFechaSolicitud(e.target.value)}/>
             <p className='p-new-truck'>Fecha de inicio: </p>   
-            <input type='date' placeholder='Descripción' className='modal-input' value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)}/>
-            <p className='p-new-truck'>Fecha de cierre: </p>
-            <input type='date' placeholder='Descripción' className='modal-input' value={fechaCierre} onChange={(e) => setFechaCierre(e.target.value)}/>
+            <input type="date" placeholder='Fecha de inicio' className='modal-input' value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)}/>
             <p className='p-new-truck'>Descripcion: </p>
-            <input type='text' placeholder='Descripción' className='modal-input' value={descripcion} onChange={(e) => setDescripcion(e.target.value)}/>
-           
+            <textarea name="" id="" value={descripcion} onChange={(e) => setDescripcion(e.target.value)}/>
             </div>
             <div className='modal-buttons'>
               <button className='modal-btn save' >Guardar</button>

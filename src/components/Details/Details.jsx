@@ -6,8 +6,10 @@ import { Nav } from '../Nav/Nav';
 
 export const Details = () => {
     const {id} = useParams();
-    const [details, setDetails] = useState(null);
+    const [details, setDetails] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [showModals, setShowModals] = useState(false);
+    const [edite, setEdite] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,8 +18,12 @@ export const Details = () => {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/truck/${id}`);
                 if (response.status === 200) {
                     console.log('Obtener los detalles del camión');
-                    setDetails(Array.isArray(response.data) ? response.data : [response.data]);                    
-                };
+                    if (response.data) {
+                        setDetails(Array.isArray(response.data) ? response.data : [response.data]);
+                    } else {
+                        setDetails([]);
+                    }
+                                    };
             } catch (error) {
                 console.error(error);
             }
@@ -27,12 +33,61 @@ export const Details = () => {
 
     }, [id]);
 
+    const handleClickEdite = () => {
+        if (details && details[0]) {
+            setEdite(details[0])
+            setShowModals(true)
+        };
+    };
+
+    const handleCloseEdite = () => {
+        setShowModals(false)
+    }
+
     const handleClickDelete = () => {
         setShowModal(true);
     }
 
     const handleCancel = () => {
         setShowModal(false);
+    }
+
+    const handleInputSave = (e) => {
+        const { name, value } = e.target;
+        setEdite((prevDetails) => ({ 
+            ...prevDetails, 
+            [name]: value || '' // Asegura que no haya valores undefined
+        }));
+    }
+
+    const handleSave = async () => {
+        console.log("Datos a enviar: ", edite);
+        
+        const { id_truck, workOrders, truck, deletedAt, ...filterEdite } = edite;
+
+        
+        console.log("Datos filtrados a enviar: ", filterEdite);
+        
+        try {
+          const response = await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/truck/${id}`, 
+                filterEdite, // Enviar solo los datos permitidos
+                { headers: { 'Content-Type': 'application/json' } 
+            });
+
+            if (response.status === 200) {
+                setDetails((prevDetails) => 
+                    prevDetails.map((detail) => (detail.id_truck === id_truck ? {...detail, ...filterEdite} : detail))
+                );                
+                setShowModals(false)
+            };
+            setTimeout(() => {
+                window.location.reload();
+              }, 10);
+        } catch (error) {
+            console.error("Error al guardar los cambios:", error.response?.data || error.message);
+            alert("Error al guardar los cambios: " + (error.response?.data?.message || error.message));
+
+        }
     }
 
     const handleDelete = async () => { 
@@ -108,7 +163,7 @@ export const Details = () => {
             {detail.workOrders && detail.workOrders.length > 0 ? (
                 <ul>
                     {detail.workOrders.map((order) => (
-                        <li key={order.id_work_order}>
+                        <li key={order.id_workOrder}>
                             {order.descripcion} - {order.fechaInicio}
                         </li>
                     ))}
@@ -118,7 +173,7 @@ export const Details = () => {
             )}
 
             <div className='div-buttons'>
-                <button className='new-btn'>Editar</button>
+                <button className='new-btn' onClick={handleClickEdite}>Editar</button>
                 <button className='delete-btn' onClick={handleClickDelete}>Eliminar</button>
             </div>
         </div>
@@ -143,7 +198,150 @@ export const Details = () => {
                     </div>
                 </div>
             )}
-    
+
+                            {/* Modal de edición */}
+                            {showModals && (
+                    <div className='modal-overlay-details'>
+                        <div className='model-content-details'>
+                            <div className='content-form-truck'>
+                                <div className='modal-header'>
+                                    <p className='p-alert'>Editar Camión</p>
+                                </div>
+                                <div className='modal-body'>
+                                    <div className='form-group'>
+                                        <label>Codigo máquina: </label>
+                                        <input 
+                                            type="text" 
+                                            name="codigo_maquina" 
+                                            value={edite.codigo_maquina || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Nombre máquina: </label>
+                                        <input 
+                                            type="text" 
+                                            name="nombre_maquina" 
+                                            value={edite.nombre_maquina || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Codigo sección: </label>
+                                        <input 
+                                            type="text" 
+                                            name="codigo_seccion" 
+                                            value={edite.codigo_seccion || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Nombre sección: </label>
+                                        <input 
+                                            type="text" 
+                                            name="nombre_sección:" 
+                                            value={edite.nombre_seccion || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Marca: </label>
+                                        <input 
+                                            type="text" 
+                                            name="marca" 
+                                            value={edite.marca || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Linea:</label>
+                                        <input 
+                                            type="text" 
+                                            name="linea" 
+                                            value={edite.linea || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Fecha de fabricación: </label>
+                                        <input
+                                            name="fecha_fabricacion" 
+                                            value={edite.fecha_fabricacion || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Comprado: </label>
+                                        <input 
+                                            type="text" 
+                                            name="comprado" 
+                                            value={edite.comprado || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Modelo: </label>
+                                        <input 
+                                            type="text" 
+                                            name="modelo" 
+                                            value={edite.modelo || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Capacidad de producción: </label>
+                                        <input 
+                                            type="text" 
+                                            name="capacidad_produccion" 
+                                            value={edite.capacidad_produccion || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Pais de origen: </label>
+                                        <input 
+                                            type="text" 
+                                            name="pais_origen" 
+                                            value={edite.pais_origen || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Fabricado: </label>
+                                        <input 
+                                            type="text" 
+                                            name="fabricado" 
+                                            value={edite.fabricado || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Fecha de instalación: </label>
+                                        <input 
+                                            type="date" 
+                                            name="fecha_instalacion" 
+                                            value={edite.fecha_instalacion || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Numero de serie: </label>
+                                        <input 
+                                            type="text" 
+                                            name="numero_serie" 
+                                            value={edite.numero_serie || ''} 
+                                            onChange={handleInputSave} 
+                                        />
+                                    </div>
+                                </div>
+                                <div className='modal-buttons'>
+                                    <button className='new-btn' onClick={handleSave}>Guardar</button>
+                                    <button className='modal-btn cancel' onClick={handleCloseEdite}>Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
     </div>
   )
 }

@@ -9,6 +9,8 @@ import { WorkOrder } from './components/WorkOrder/WorkOrder.jsx';
 import { Section } from './components/Section/Section.jsx';
 import Calendar from 'react-calendar';
 import { Details } from './components/Details/Details.jsx';
+import { DetailsWork } from './components/DetailsWork/DetailsWork.jsx';
+import { Operator } from './components/Operator/Operator.jsx';
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
       <Route path='/work' element={<WorkOrder/>}></Route>
       <Route path='/section' element={<Section/>}></Route>
       <Route path='/details/:id' element={<Details/>}></Route>
+      <Route path='/detailsWork/:id' element={<DetailsWork/>}></Route>
+      <Route path='/operator' element={<Operator/>}></Route>
     </Routes>
  </HashRouter>
   );
