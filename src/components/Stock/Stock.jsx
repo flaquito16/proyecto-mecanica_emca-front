@@ -136,7 +136,7 @@ export const Stock = () => {
                 <tr key={index}>
                   <td>{formDetail.nombre}</td>
                   <td>{formDetail.cantidad}</td>
-                  <td>{formDetail.precio}</td>
+                  <td>${formDetail.precio}</td>
                   <td>
                     <button className='new-btn'>Ver más</button>
                   </td>

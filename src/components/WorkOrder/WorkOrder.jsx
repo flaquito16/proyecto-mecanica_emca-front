@@ -208,7 +208,7 @@ export const WorkOrder = () => {
             </option>
         ))
     )}
-</select>
+        </select>
             <p className='p-new-truck'>Area: </p>
             <input type='text' placeholder='Descripción' className='modal-input' value={area} onChange={(e) => setArea(e.target.value)}/>
             <p className='p-new-truck'>Operario: </p>

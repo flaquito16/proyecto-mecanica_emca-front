@@ -2,12 +2,14 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { Nav } from '../Nav/Nav';
+import { asCleanDays } from '@fullcalendar/core/internal';
 
 export const DetailsWork = () => {
     const { id } = useParams();
     const [formDetails, setFormDetails] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [showModals, setShowModals] = useState(false);
+    const [stock, setStock] = useState([]);
     const [edite, setEdite] = useState([]);
     const navigate = useNavigate();
 
@@ -26,6 +28,21 @@ export const DetailsWork = () => {
 
         fetchData();
     }, [id]);
+
+    useEffect(() => {
+        const fechtStock = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/stock`)
+                if (response === 200) {
+                    console.log('se obtuvieron todos los datos del stock');
+                    setStock(response.data ? response.data : [response.data])
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        } ;
+        fechtStock()
+    }, [])
 
     // Abrir modal de edición y precargar datos
     const handleCLick = () => {
