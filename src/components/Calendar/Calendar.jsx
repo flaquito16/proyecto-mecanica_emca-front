@@ -56,19 +56,41 @@ export const Cale = () => {
 
 
   useEffect(() => {
-    const fechtDetaisl = async () => {
+    const fetchDetails = async () => {
       try {
-        const  response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/work-order`);
-          if (response.status === 200) {
-            setDetails(response.data);
-          }
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/work-order`);
+  
+        if (response.status === 200 && Array.isArray(response.data)) {
+          const transformed = response.data.map((work) => {
+            const start = new Date(work.fechaInicio);
+            const end = work.fechaCierre ? new Date(work.fechaCierre) : new Date(work.fechaInicio);
+  
+            // Validar fechas
+            if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+              console.warn('Fecha inválida:', work);
+              return null;
+            }
+  
+            return {
+              ...work,
+              title: work.descripcion || 'Sin descripción',
+              start,
+              end,
+            };
+          }).filter(Boolean); // Elimina los nulls
+  
+          setDetails(transformed);
+        }
       } catch (error) {
-        console.error('Error fetching details:', error);
+        console.error('Error al obtener detalles:', error);
       }
-    }
-    fechtDetaisl();
-  },[])
-
+    };
+  
+    fetchDetails();
+  }, []);
+  
+  
+  
   useEffect(() => {
     if (selectedDate) {
       setDate(selectedDate);
@@ -83,7 +105,7 @@ export const Cale = () => {
   return (
     <div className="calendar-container">
       <header className="calendar-header">
-        <h3>Calendario</h3>
+        <h3 >Calendario</h3>
       </header>
 
       <div className="calendar-content">
@@ -108,7 +130,7 @@ export const Cale = () => {
             events={details}
             startAccessor="start"
             endAccessor="end"
-            style={{ height: 500 }}
+            style={{ height: 950 }}
             view={view}
             date={date}
             onView={setView}

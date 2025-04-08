@@ -125,7 +125,7 @@ export const DetailsWork = () => {
             </div>
             <div className='div-general'>
                 <strong>
-                    <p>Orden de trabajo</p>
+                    <p className='title-details'>Orden de trabajo</p>
                 </strong>
                 {formDetails && Array.isArray(formDetails) ? (
                     formDetails.map((order) => (
