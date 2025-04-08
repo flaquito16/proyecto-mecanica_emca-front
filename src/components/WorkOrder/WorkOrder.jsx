@@ -7,7 +7,7 @@ import { useNavigate} from 'react-router-dom'
 import axios from 'axios';
 
 export const WorkOrder = () => {
-  const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
+  const [searchTerm, setSearchTerm] = useState(''); 
   const [showModal, setShowModal] = useState(false);
   const [formDetails, setFormDetails] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,15 +19,15 @@ export const WorkOrder = () => {
   const [prioridad, setPrioridad] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const navigate = useNavigate();
-  const [camiones, setCamiones] = useState([]); // Estado para los camiones
-  const [operators, setOperators] = useState([]); // Estado para los operarios
+  const [camiones, setCamiones] = useState([]); 
+  const [operators, setOperators] = useState([]); 
   const [message, setMessage] = useState('');
-  const [selectedTruckId, setSelectedTruckId] = useState(""); // Guarda el ID del camión
-  const [selectedOperarioId, setSelectedOperarioId] = useState(""); // Guarda el ID del operario
+  const [selectedTruckId, setSelectedTruckId] = useState(""); 
+  const [selectedOperarioId, setSelectedOperarioId] = useState("");
 
   
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/operator`) // Ajusta la URL según tu backend
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/operator`) 
     .then(response => {
       setOperators(response.data);
       if (response.data.length > 0) {
@@ -37,7 +37,7 @@ export const WorkOrder = () => {
   }, [])
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/truck`) // Ajusta la URL según tu backend
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/truck`) 
     .then(response => {
       setCamiones(response.data);
       if (response.data.length > 0) {
@@ -78,12 +78,12 @@ export const WorkOrder = () => {
         encargado,
         responsable,
         tipoMantenimiento,
-        fechaSolicitud: new Date(fechaSolicitud),  // Enviando como objeto Date
-        fechaInicio: new Date(fechaInicio),  // Enviando como objeto Date
+        fechaSolicitud: new Date(fechaSolicitud),  
+        fechaInicio: new Date(fechaInicio), 
         prioridad,
         descripcion,
         truckId: parseInt(selectedTruckId),
-        operatorId: parseInt(selectedOperarioId), // Asegúrate de que este ID sea el correcto
+        operatorId: parseInt(selectedOperarioId), 
       }
 
       try {
@@ -100,7 +100,7 @@ export const WorkOrder = () => {
 
         } else {
           console.error("La respuesta de la API no es un array:", response.data);
-          setFormDetails([]); // Evita que el error se propague
+          setFormDetails([]); 
         }
         setTimeout(() => {
           window.location.reload();

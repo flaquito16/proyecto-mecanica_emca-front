@@ -128,58 +128,65 @@ export const DetailsWork = () => {
                     <p>Orden de trabajo</p>
                 </strong>
                 {formDetails && Array.isArray(formDetails) ? (
-                    formDetails.map((work) => (
-           <div className='details-general' key={work.id_workOrder}>
+                    formDetails.map((order) => (
+           <div className='details-general' key={order.id_workOrder}>
         <div>
          <p>
     <strong>Operario: </strong>
         </p>
-        {work.operator && work.operator.length > 0 ? (
-         <div>
-      {work.operator.map((operators) => (
+                  {Array.isArray(order.operator) ? (
+                order.operator.length > 0 ? (
+    <ul>
+      {order.operator.map((operators) => (
         <p key={operators.id_operator}>{operators.nombreO}</p>
       ))}
-    </div>
-         ) : (
-          <p>No hay operario asignado.</p>
-     )}
+    </ul>
+  ) : (
+    <p>No hay operario asignado.</p>
+  )
+) : order.operator ? (
+  <p>{order.operator.nombreO}</p> // si viene como objeto
+) : (
+  <p>No hay operario asignado.</p>
+)}
+
     </div>
 
                <p>
-                   <strong>Encargado: </strong> {work.encargado}
+                   <strong>Encargado: </strong> {order.encargado}
                </p>
                <p>
-                   <strong>Responsable: </strong> {work.responsable}
+                   <strong>Responsable: </strong> {order.responsable}
                </p>
                <p>
-                   <strong>Prioridad: </strong> {work.prioridad}
+                   <strong>Prioridad: </strong> {order.prioridad}
                </p>
                <p>
-                   <strong>Tipo de mantenimiento: </strong> {work.tipoMantenimiento}
+                   <strong>Tipo de mantenimiento: </strong> {order.tipoMantenimiento}
                </p>
                <p>
-                   <strong>Fecha de solicitud: </strong> {work.fechaSolicitud}
+                   <strong>Fecha de solicitud: </strong> {order.fechaSolicitud}
                </p>
                <p>
-                   <strong>Fecha de inicio: </strong> {work.fechaInicio}
+                   <strong>Fecha de inicio: </strong> {order.fechaInicio}
                </p>
                <p>
-                   <strong>Fecha de cierre: </strong> {work.fechaCierre}
+                   <strong>Fecha de cierre: </strong> {order.fechaCierre}
                </p>
                <p>
-                   <strong>Numero de orden: </strong> {work.numeroOrden}
+                   <strong>Numero de orden: </strong> {order.numeroOrden}
                </p>
                <p>
-                   <strong>Descripción: </strong> {work.descripcion}
+                   <strong>Descripción: </strong> {order.descripcion}
                </p>
                <p>
-                   <strong>Precio interno: </strong> ${work.precioInterno}
+                   <strong>Precio interno: </strong> ${order.precioInterno}
                </p>
                <p>
-                   <strong>Precio externo: </strong> ${work.precioExterno}
+                   <strong>Precio externo: </strong> ${order.precioExterno}
                </p>
                <p>
-                   <strong>Precio total: </strong> ${work.precioTotal}
+                   <strong>Precio total: </strong> ${order.precioTotal}
                </p>
                <div className='div-buttons'>
                    <button className='new-btn' onClick={handleCLick}>Editar</button>

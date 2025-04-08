@@ -169,8 +169,8 @@ export const Stock = () => {
               <button className='modal-btn save'>Guardar</button>
               <button className='modal-btn cancel' onClick={handleCloseModal}>Cancelar</button>
             </div>
-          </div>
         <p>{message}</p> 
+          </div>
           </form>
         </div>
       )}

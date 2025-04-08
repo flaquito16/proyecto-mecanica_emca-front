@@ -149,7 +149,6 @@ export const Truck = () => {
                 <th>Codigo</th>
                 <th>Equipo</th>
                 <th>Sección</th>
-                <th>Tareas</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -171,20 +170,6 @@ export const Truck = () => {
                         <p>No hay secciones asignadas.</p>
                       </td>
                     )}
-                  {truck.workOrders && truck.workOrders.length > 0 ? (
-                    <td>
-                      {truck.workOrders.map((order) => (
-                        <ul key={order.id_workOrder}>
-                          {order.descripcion}
-                        </ul>
-                      ))}
-                    </td>
-
-                    ) : (
-                      <td>
-                      <p>No hay órdenes de trabajo registradas.</p>
-                      </td>
-                  )}
                   <td>
                     <Link to={`/details/${truck.id_truck}`}>
                     <button className='new-btn'>Ver mas</button>

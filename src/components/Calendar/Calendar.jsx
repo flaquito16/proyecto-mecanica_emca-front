@@ -11,6 +11,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-calendar/dist/Calendar.css';
 import 'dayjs/locale/es';
 import './Cale.css';
+import axios from 'axios';
 
 dayjs.locale('es');
 
@@ -46,23 +47,27 @@ const CustomToolbar = ({ label, onNavigate, onView, view }) => (
 );
 
 export const Cale = () => {
+  const [details, setDetails] = useState([]);
   const [date, setDate] = useState(new Date());
   const [view, setView] = useState('month');
   const [selectedDate, setSelectedDate] = useState(null);
 
   // ✅ Lista de eventos
-  const [events, setEvents] = useState([
-    {
-      title: 'Reunión con cliente',
-      start: new Date(2024, 3, 1, 10, 0),
-      end: new Date(2024, 3, 1, 12, 0),
-    },
-    {
-      title: 'Entrega de proyecto',
-      start: new Date(2024, 3, 3, 15, 0),
-      end: new Date(2024, 3, 3, 16, 0),
+
+
+  useEffect(() => {
+    const fechtDetaisl = async () => {
+      try {
+        const  response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/work-order`);
+          if (response.status === 200) {
+            setDetails(response.data);
+          }
+      } catch (error) {
+        console.error('Error fetching details:', error);
+      }
     }
-  ]);
+    fechtDetaisl();
+  },[])
 
   useEffect(() => {
     if (selectedDate) {
@@ -78,7 +83,7 @@ export const Cale = () => {
   return (
     <div className="calendar-container">
       <header className="calendar-header">
-        <h3>Mis calendarios</h3>
+        <h3>Calendario</h3>
       </header>
 
       <div className="calendar-content">
@@ -88,9 +93,9 @@ export const Cale = () => {
           <div className="agenda">
             <h4>Agenda</h4>
             <ul>
-              {events.map((event, index) => (
-                <p key={index}>
-                  <span>{dayjs(event.start).format('DD/MM/YYYY')}</span>: {event.title}
+              {details.map((work) => (
+                <p key={work.id_workOrder}>
+                  <span>{dayjs(work.fechaInicio).format('DD/MM/YYYY')}</span>: {work.descripcion}
                 </p>
               ))}
             </ul>
@@ -100,7 +105,7 @@ export const Cale = () => {
         <main className="calendar-main">
           <Calendar
             localizer={localizer}
-            events={events}
+            events={details}
             startAccessor="start"
             endAccessor="end"
             style={{ height: 500 }}

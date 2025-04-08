@@ -56,7 +56,7 @@ export const Details = () => {
         const { name, value } = e.target;
         setEdite((prevDetails) => ({ 
             ...prevDetails, 
-            [name]: value || '' // Asegura que no haya valores undefined
+            [name]: value || '' 
         }));
     }
 
@@ -70,7 +70,7 @@ export const Details = () => {
         
         try {
           const response = await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/truck/${id}`, 
-                filterEdite, // Enviar solo los datos permitidos
+                filterEdite, 
                 { headers: { 'Content-Type': 'application/json' } 
             });
 
@@ -186,11 +186,11 @@ export const Details = () => {
                 <button className='delete-btn' onClick={handleClickDelete}>Eliminar</button>
             </div>
         </div>
-    ))
+         ))
         ) : (
-    <p>Cargando detalles...</p>
+            <p>Cargando detalles...</p>
         )}  
-        </div>
+         </div>
         
             {showModal && (
                 <div className='modal-overlay-details'>
@@ -207,9 +207,7 @@ export const Details = () => {
                     </div>
                 </div>
             )}
-
-                            {/* Modal de edición */}
-                            {showModals && (
+                {showModals && (
                     <div className='modal-overlay-details'>
                         <div className='model-content-details'>
                             <div className='content-form-truck'>
@@ -331,8 +329,8 @@ export const Details = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                 </div>
+        )}
     </div>
   )
 }
