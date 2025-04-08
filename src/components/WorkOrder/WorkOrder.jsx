@@ -11,8 +11,6 @@ export const WorkOrder = () => {
   const [showModal, setShowModal] = useState(false);
   const [formDetails, setFormDetails] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [area, setArea] = useState('');
-  const [operario, setOperario] = useState('');
   const [encargado, setEncargado] = useState('');
   const [responsable, setResponsable] = useState('');
   const [tipoMantenimiento, setTipoMantenimiento] = useState('');
@@ -22,11 +20,22 @@ export const WorkOrder = () => {
   const [descripcion, setDescripcion] = useState('');
   const navigate = useNavigate();
   const [camiones, setCamiones] = useState([]); // Estado para los camiones
+  const [operators, setOperators] = useState([]); // Estado para los operarios
   const [message, setMessage] = useState('');
   const [selectedTruckId, setSelectedTruckId] = useState(""); // Guarda el ID del camión
-
+  const [selectedOperarioId, setSelectedOperarioId] = useState(""); // Guarda el ID del operario
 
   
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/operator`) // Ajusta la URL según tu backend
+    .then(response => {
+      setOperators(response.data);
+      if (response.data.length > 0) {
+        setFormDetails(prevData => ({ ...prevData, operatorId: response.data[0].id }));
+      }
+    })
+  }, [])
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/truck`) // Ajusta la URL según tu backend
     .then(response => {
@@ -60,14 +69,12 @@ export const WorkOrder = () => {
     const handleSubmit = async (e) => {
       e.preventDefault()
       
-      if ( !prioridad || !descripcion || !tipoMantenimiento || !fechaInicio || !fechaSolicitud || !responsable || !encargado || !operario || !area) { 
+      if ( !prioridad || !descripcion || !tipoMantenimiento || !fechaInicio || !fechaSolicitud || !responsable || !encargado ) { 
         setMessage('Llene todos los campos')
         return;
       }
       
       const payload = {
-        area,
-        operario,
         encargado,
         responsable,
         tipoMantenimiento,
@@ -76,6 +83,7 @@ export const WorkOrder = () => {
         prioridad,
         descripcion,
         truckId: parseInt(selectedTruckId),
+        operatorId: parseInt(selectedOperarioId), // Asegúrate de que este ID sea el correcto
       }
 
       try {
@@ -209,12 +217,21 @@ export const WorkOrder = () => {
         ))
     )}
         </select>
-            <p className='p-new-truck'>Area: </p>
-            <input type='text' placeholder='Descripción' className='modal-input' value={area} onChange={(e) => setArea(e.target.value)}/>
-            <p className='p-new-truck'>Operario: </p>
-            <input type='text' placeholder='Descripción' className='modal-input' value={operario} onChange={(e) => setOperario(e.target.value)}/>
+          <p className='p-new-truck'>Operario: </p>
+            <select name="operarioId" value={selectedOperarioId} onChange={(e) => setSelectedOperarioId(e.target.value)}>
+            <option value="">Seleccionar</option>
+            {operators.length === 0 ? (
+                <option value="">No hay operarios disponibles</option>
+            ) : (
+                operators.map(operario => (
+                    <option key={operario.id_operator} value={operario.id_operator}>
+                        {operario.nombreO} {/* Muestra el nombre del operario */}
+                    </option>
+                ))
+            )}
+            </select>
             <p className='p-new-truck'>Encargado: </p>
-            <input type='text' placeholder='Descripción' className='modal-input' value={encargado} onChange={(e) => setEncargado(e.target.value)}/>
+            <input type='text' placeholder='Encargado' className='modal-input' value={encargado} onChange={(e) => setEncargado(e.target.value)}/>
             <p className='p-new-truck'>Responsable: </p>
             {/* Se tiene que agregar el apartado que si se elije que es externo
              mostrar los contratos con los que tiene 
@@ -240,11 +257,11 @@ export const WorkOrder = () => {
                 <option value="Consumible">Consumible</option>
               </select>
               <p className='p-new-truck'>Fecha de solicitud: </p>   
-            <input type='date' placeholder='Descripción' className='modal-input' value={fechaSolicitud} onChange={(e) => setFechaSolicitud(e.target.value)}/>
+            <input type='date' placeholder='fecha de solicitud' className='modal-input' value={fechaSolicitud} onChange={(e) => setFechaSolicitud(e.target.value)}/>
             <p className='p-new-truck'>Fecha de inicio: </p>   
             <input type="date" placeholder='Fecha de inicio' className='modal-input' value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)}/>
             <p className='p-new-truck'>Descripcion: </p>
-            <textarea name="" id="" value={descripcion} onChange={(e) => setDescripcion(e.target.value)}/>
+            <textarea name="" id="" placeholder='Descripcion' value={descripcion} onChange={(e) => setDescripcion(e.target.value)}/>
             </div>
             <div className='modal-buttons'>
               <button className='modal-btn save' >Guardar</button>

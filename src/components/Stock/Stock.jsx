@@ -159,11 +159,11 @@ export const Stock = () => {
               <h3>Detalles</h3>
             <div className='content-form-truck'>
             <p className='p-new-truck'>Nombre: </p>
-            <input type='text' placeholder='Nombre del equipo' className='modal-input' value={nombre} onChange={(e) => setNombre(e.target.value)}/>
+            <input type='text' placeholder='Nombre del producto' className='modal-input' value={nombre} onChange={(e) => setNombre(e.target.value)}/>
             <p className='p-new-truck'>Cantidad: </p>
-            <input type='text' placeholder='Descripción' className='modal-input' value={cantidad} onChange={(e) => setCantidad(e.target.value)}/>
+            <input type='text' placeholder='Cantidad del producto' className='modal-input' value={cantidad} onChange={(e) => setCantidad(e.target.value)}/>
             <p className='p-new-truck'>Costo: </p>
-            <input type='text' placeholder='Descripción' className='modal-input' value={precio} onChange={(e) => setPrecio(e.target.value)}/>
+            <input type='text' placeholder='Costo del producto' className='modal-input' value={precio} onChange={(e) => setPrecio(e.target.value)}/>
             </div>
             <div className='modal-buttons'>
               <button className='modal-btn save'>Guardar</button>

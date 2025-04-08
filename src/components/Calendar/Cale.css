@@ -1,0 +1,140 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.calendar-container {
+    
+  
+    height: 100vh;
+    
+
+  }
+  .calendar-content{
+      display: flex;
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: 0%;
+  }
+  
+  .calendar-header {
+      
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    align-items: center;
+    background-color: #f3f4f6;
+    padding: 1rem;
+
+  }
+  
+ 
+  .Button-header{
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      background-color: rgb(59 130 246);
+      border-radius: 0.375rem;
+      border: none;
+      color: white;
+
+  }
+  .create-event-btn {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(to right, #3b82f6, #2563eb);
+    color: white;
+    border-radius: 0.375rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  
+  .create-event-btn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .calendar-main {
+      height: 100%;
+    display: flex;
+    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+  }
+  
+  .calendar-sidebar {
+      width: 25%;
+    background-color: #f3f4f6;
+    padding: 30px;
+  }
+  
+  .mini-calendar {
+     
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+  }
+  
+  .mini-calendar .react-calendartile {
+    transition: background 0.3s;
+  }
+  
+  .mini-calendar .react-calendartile:hover {
+    background-color: #bfdbfe;
+  }
+  
+  .mini-agenda {
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    background-color: white;
+  }
+  
+  .mini-agenda h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .mini-agenda li {
+    margin-bottom: 0.5rem;
+  }
+  
+  
+  .cale {
+    flex: 1;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+  .toolbar{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+  }
+
+  .toolbar-navigation{
+      display: flex;
+      align-items: center;
+
+  }
+  .button-primary{
+      border-radius: 0.25rem;
+      padding: 0.25rem 0.5rem 0.25rem 0.5rem ;
+      margin-right: 0.5rem;
+      color: white;
+      background-color: #2563eb;
+      border: none;
+  }
+  .button{
+      border-radius: 0.25rem;
+      padding: 0.25rem 0.5rem 0.25rem 0.5rem ;
+      margin-right: 0.5rem;
+      color: white;
+      background-color: rgb(204, 204, 204);
+      border: none;
+  }

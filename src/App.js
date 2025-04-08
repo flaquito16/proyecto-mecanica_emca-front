@@ -7,10 +7,10 @@ import { Truck } from './components/Truck/Truck.jsx';
 import { Stock } from './components/Stock/Stock.jsx';
 import { WorkOrder } from './components/WorkOrder/WorkOrder.jsx';
 import { Section } from './components/Section/Section.jsx';
-import Calendar from 'react-calendar';
 import { Details } from './components/Details/Details.jsx';
 import { DetailsWork } from './components/DetailsWork/DetailsWork.jsx';
 import { Operator } from './components/Operator/Operator.jsx';
+import { Cale } from './components/Calendar/Calendar.jsx';
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
       <Route index path='/home' element={<Home/>}></Route>
       <Route path='/truck' element={<Truck/>}></Route>
       <Route path='/stock' element={<Stock/>}></Route>
-      <Route path='/calendar' element={<Calendar/>}></Route>
+      <Route path='/calendar' element={<Cale/>}></Route>
       <Route path='/work' element={<WorkOrder/>}></Route>
       <Route path='/section' element={<Section/>}></Route>
       <Route path='/details/:id' element={<Details/>}></Route>

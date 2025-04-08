@@ -122,12 +122,21 @@ export const Details = () => {
             <p>
                 <strong>Nombre máquina: </strong> {detail.nombre_maquina}
             </p>
+            <div>
             <p>
-                <strong>Codigo sección: </strong> {detail.codigo_seccion}
-            </p>
-            <p>
-                <strong>Nombre sección: </strong> {detail.nombre_seccion}
-            </p>
+                <strong>Nombre sección: </strong>
+                </p>
+                {detail.sections && detail.sections.length > 0 ? (
+                    <p>
+                    {detail.sections.map((section) => (
+                        <span key={section.id_section}>{section.nombre}</span>
+                    ))}
+                  </p>  
+                ) : (
+                    <p>No hay secciones asignadas.</p>
+                )}  
+
+            </div>
             <p>
                 <strong>Marca: </strong> {detail.marca}
             </p>
@@ -223,24 +232,6 @@ export const Details = () => {
                                             type="text" 
                                             name="nombre_maquina" 
                                             value={edite.nombre_maquina || ''} 
-                                            onChange={handleInputSave} 
-                                        />
-                                    </div>
-                                    <div className='form-group'>
-                                        <label>Codigo sección: </label>
-                                        <input 
-                                            type="text" 
-                                            name="codigo_seccion" 
-                                            value={edite.codigo_seccion || ''} 
-                                            onChange={handleInputSave} 
-                                        />
-                                    </div>
-                                    <div className='form-group'>
-                                        <label>Nombre sección: </label>
-                                        <input 
-                                            type="text" 
-                                            name="nombre_sección:" 
-                                            value={edite.nombre_seccion || ''} 
                                             onChange={handleInputSave} 
                                         />
                                     </div>

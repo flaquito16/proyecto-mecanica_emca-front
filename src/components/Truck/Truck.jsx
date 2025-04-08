@@ -15,8 +15,6 @@ export const Truck = () => {
   const [loading, setLoading] = useState(true);
   const [codigoMaquina, setCodigoMaquina] = useState('');
   const [nombreMaquina, setNombreMaquina] = useState('');
-  const [codigoSeccion, setCodigoSeccion] = useState('');
-  const [nombreSeccion, setNombreSeccion] = useState('');
   const [marca, setMarca] = useState('');
   const [añoFabricacion, setAñoFabricacion] = useState('');
   const [comprado, setComprado] = useState('');
@@ -28,6 +26,8 @@ export const Truck = () => {
   const [numeroSerie, setNumeroSerie] = useState('');
   const [linea, setLinea] = useState(''); 
   const navigate = useNavigate();
+
+
 
   useEffect(() => {
     const fetchTruck = async () => {
@@ -54,7 +54,7 @@ export const Truck = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    if (!nombreSeccion || !codigoSeccion || !codigoMaquina || !nombreMaquina || !marca || !añoFabricacion || !comprado || !modelo || !capacidadProduccion || !paisOrigen || !fabricado || !fechaInstalacion || !numeroSerie) {
+    if (!codigoMaquina || !nombreMaquina || !marca || !añoFabricacion || !comprado || !modelo || !capacidadProduccion || !paisOrigen || !fabricado || !fechaInstalacion || !numeroSerie) {
       setMessage('Por favor llenar todos los campos y subir un archivo');
       return;
     }
@@ -62,8 +62,6 @@ export const Truck = () => {
     const formData = new FormData();
     formData.append("codigo_maquina", codigoMaquina);
     formData.append("nombre_maquina", nombreMaquina);
-    formData.append("codigo_seccion", codigoSeccion);
-    formData.append("nombre_seccion", nombreSeccion);
     formData.append("marca", marca);
     formData.append("linea", linea);
     formData.append("fecha_fabricacion", añoFabricacion);
@@ -150,6 +148,7 @@ export const Truck = () => {
               <tr>
                 <th>Codigo</th>
                 <th>Equipo</th>
+                <th>Sección</th>
                 <th>Tareas</th>
                 <th>Acciones</th>
               </tr>
@@ -159,6 +158,19 @@ export const Truck = () => {
                 <tr key={truck.id_truck}>
                   <td>{truck.codigo_maquina}</td>
                   <td>{truck.nombre_maquina}</td>
+                    {truck.sections && truck.sections.length > 0 ? (
+                      <td>
+                        {truck.sections.map((section) => (
+                          <ul key={section.id_section}>
+                             {section.nombre}
+                          </ul>
+                        ))}
+                      </td>
+                    ) : (
+                      <td>
+                        <p>No hay secciones asignadas.</p>
+                      </td>
+                    )}
                   {truck.workOrders && truck.workOrders.length > 0 ? (
                     <td>
                       {truck.workOrders.map((order) => (
@@ -200,13 +212,6 @@ export const Truck = () => {
             <p className='p-new-truck'>Nombre: </p>
             <input type='text' placeholder='Nombre de la maquina' className='modal-input' value={nombreMaquina} onChange={(e) => setNombreMaquina(e.target.value)}/>
             </div>
-              <h3>Seccion</h3>
-            <div className='content-form-truck'>
-            <p className='p-new-truck'>Codigo: </p>
-            <input type='text' placeholder='Codigo de la sección' className='modal-input' value={codigoSeccion} onChange={(e) => setCodigoSeccion(e.target.value)}/>
-            <p className='p-new-truck'>Nombre: </p>
-            <input type='text' placeholder='Nombre de la sección' className='modal-input' value={nombreSeccion} onChange={(e) => setNombreSeccion(e.target.value)}/>
-            </div>
               <h3>Descripcion de la maquina</h3>
             <div className='content-form-truck'>
             <p className='p-new-truck'>Marca: </p>
@@ -234,8 +239,8 @@ export const Truck = () => {
               <button className='modal-btn save' type='submit'>Guardar</button>
               <button className='modal-btn cancel' onClick={handleCloseModal}>Cancelar</button>
             </div>
-          </div>
           {message && <p className="message">{message}</p>}
+          </div>
           </form>
         </div>
       )}

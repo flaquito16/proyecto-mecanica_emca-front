@@ -50,7 +50,7 @@ export const Operator = () => {
     
     
         const formData = new FormData();
-        formData.append('nombre_operario', nombre)
+        formData.append('nombre', nombre)
 
     try {
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/operator`, 
@@ -103,7 +103,7 @@ export const Operator = () => {
         <tbody>
      {formDeatils?.map((opera) => (
          <tr key={opera.id_operator}>
-        <td>{opera.nombre_operario}</td>
+        <td>{opera.nombre}</td>
         <td>
         <button className='new-btn'>Ver más</button>
       </td>
