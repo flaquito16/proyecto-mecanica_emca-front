@@ -2,8 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Nav } from '../Nav/Nav';
+import { useFromContext } from '../../Context/FromContext';
+import { User } from '../User/User';
+
 
 export const Section = () => {
+  const {currentUser} = useFromContext();
   const [nombre, setNombre] = useState('');
   const [codigo, setCodigo] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -110,11 +114,16 @@ const handleClose = () => {
         </strong>
         <div className='filter-truck'>
       <strong>
-        <p className='p-num'>8</p>
+        <p className='p-num'>{formDetails.length}</p>
       </strong>
+      {currentUser && (
+        <>
       <div className='div-search'>
         <button className='new-btn' onClick={handleClick}>Nuevo</button>
       </div>
+        </>
+      )}
+      <User></User>
     </div> 
     <div className='main-truck'>
       {loading ? ( 
@@ -125,7 +134,11 @@ const handleClose = () => {
           <tr>
             <th>Codigo sección</th>
             <th>Nombre de sección</th>
+            {currentUser && (
+              <>
             <th>Acciones</th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -133,10 +146,13 @@ const handleClose = () => {
   <tr key={from.id_section}>
     <td>{from.codigo}</td>
     <td>{from.nombre}</td>
-
+          {currentUser && (
+            <>
     <td>
       <button className='new-btn'>Ver más</button>
     </td>
+            </>
+                    )}
   </tr>
 ))}
 
@@ -150,21 +166,21 @@ const handleClose = () => {
     </div>
     
   {showModal && (
-    <div className='modal-overlay'>
+    <div className='modal-overlay2'>
       <form action="" onSubmit={handleSubmit}>
-      <div className='modal-content'>
+      <div className='modal-content3'>
         <h1>Agregar Una Nueva Sección</h1>
           <h3>Detalles</h3>
-        <div className='content-form-truck'>
-        <p className='p-new-truck'>Nombre de la sección: </p>
+        <div className='content-form-truck2'>
+        <p className='p-new-truck2'>Nombre de la sección: </p>
         <input type='text' placeholder='Nombre de la seccion' className='modal-input' value={nombre} onChange={(e) => setNombre(e.target.value)}/>
         </div>
-        <div className='content-form-truck'>
-        <p className='p-new-truck'>Codigo de la sección: </p>
+        <div className='content-form-truck2'>
+        <p className='p-new-truck2'>Codigo de la sección: </p>
         <input type='text' placeholder='Codigo de la seccion' className='modal-input' value={codigo} onChange={(e) => setCodigo(e.target.value)}/>
         </div>
-        <div className='content-form-truck'>
-        <p className='p-new-truck'>Camion: </p>
+        <div className='content-form-truck2'>
+        <p className='p-new-truck2'>Camion: </p>
         <select name="truckId" id="" value={selectedTruckId} onChange={(e) => setSelectedTruckId(e.target.value)}>
           <option value="">Seleccionar</option>
           {camiones.length === 0 ? (

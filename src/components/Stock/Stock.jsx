@@ -4,8 +4,11 @@ import filtro from '../../assets/filtrar.png';
 import './Stock.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useFromContext } from '../../Context/FromContext';
+import { User } from '../User/User';
 
 export const Stock = () => {
+      const {currentUser} = useFromContext();
       const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
       const [formDetails, setFormDetails] = useState([]);
       const [showModal, setShowModal] = useState(false);
@@ -96,6 +99,8 @@ export const Stock = () => {
             <p className='name-meca'>Inventario</p>
             </strong>
             <div className='filter-truck'>
+          <div className='div-search'>
+
           <img className='filter-img' src={filtro} alt='' />
           <select className='select-filter'>
             <option value=''>Seleccionar</option>
@@ -107,16 +112,22 @@ export const Stock = () => {
             <option value='Eliminado'>Eliminado</option>
           </select>
           <strong>
-            <p className='p-num'>8</p>
+            <p className='p-num'>{formDetails.length}</p>
           </strong>
+          </div>
           <div className='div-search'>
             <div className='search-box'>
               🔍
               <input type='text' className='search-input' placeholder='Buscar...' value={searchTerm} onChange={e => setSearchTerm(e.target.value)}/>
             </div>
+            {currentUser && (
+              <>
             <button className='new-btn' onClick={handleNewClick}>Nuevo</button>
+              </>
+            )}
           </div>
-        </div> 
+        </div>
+        <User></User>
         <div className='main-truck'>
           {loading ? ( 
           <p>Cargando...</p> ) : (
@@ -125,21 +136,31 @@ export const Stock = () => {
           <table className='details-table'>
             <thead>
               <tr>
+              <th>Item</th>
                 <th>Nombre</th>
                 <th>Cantidad</th>
                 <th>Costo</th>
+                {currentUser && (
+                  <>
                 <th>Acciones</th>
+                  </>
+                )}
               </tr>
             </thead>
        <tbody>
               {filteredForms?.map((formDetail, index) => (
                 <tr key={index}>
+                  <td>{formDetail.item}</td>
                   <td>{formDetail.nombre}</td>
                   <td>{formDetail.cantidad}</td>
                   <td>${formDetail.precio}</td>
+                    {currentUser && (
+                      <>
                   <td>
                     <button className='new-btn'>Ver más</button>
                   </td>
+                      </>
+                    ) }
                 </tr>
               ))}
             </tbody>
@@ -152,17 +173,17 @@ export const Stock = () => {
         </div>
         
       {showModal && (
-        <div className='modal-overlay'>
+        <div className='modal-overlay2'>
           <form action="" onSubmit={handleSubmit}>
-          <div className='modal-content'>
+          <div className='modal-content3'>
             <h1>Agregar Un Nuevo Producto</h1>
               <h3>Detalles</h3>
-            <div className='content-form-truck'>
-            <p className='p-new-truck'>Nombre: </p>
+            <div className='content-form-truck2'>
+            <p className='p-new-truck2'>Nombre: </p>
             <input type='text' placeholder='Nombre del producto' className='modal-input' value={nombre} onChange={(e) => setNombre(e.target.value)}/>
-            <p className='p-new-truck'>Cantidad: </p>
+            <p className='p-new-truck2'>Cantidad: </p>
             <input type='text' placeholder='Cantidad del producto' className='modal-input' value={cantidad} onChange={(e) => setCantidad(e.target.value)}/>
-            <p className='p-new-truck'>Costo: </p>
+            <p className='p-new-truck2'>Costo: </p>
             <input type='text' placeholder='Costo del producto' className='modal-input' value={precio} onChange={(e) => setPrecio(e.target.value)}/>
             </div>
             <div className='modal-buttons'>

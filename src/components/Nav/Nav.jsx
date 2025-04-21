@@ -76,10 +76,12 @@ export const Nav = () => {
           </Link>
         </div> 
         <div className='div-li-nav'>
+        <Link to={'/information'}>
           <li>
           <img className='img-nav' src={reporte} alt="" />
           <p className='p-li'>Informes</p>
           </li>
+          </Link>
         </div> 
       </ul>
        </div>

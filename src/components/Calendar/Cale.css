@@ -1,12 +1,7 @@
-
-
-.calendar-container {
-    
-  
+.calendar-container {   
     height: 100vh;
-    
-
   }
+
   .calendar-content{
       display: flex;
       flex-grow: 1;
@@ -15,17 +10,14 @@
   }
   
   .calendar-header {
-      
       display: flex;
       justify-content: space-between;
       width: 100%;
     align-items: center;
     background-color: #f3f4f6;
     padding: 1rem;
-
   }
-  
- 
+
   .Button-header{
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
@@ -35,8 +27,8 @@
       border-radius: 0.375rem;
       border: none;
       color: white;
-
   }
+
   .create-event-btn {
     padding: 0.5rem 1rem;
     background: linear-gradient(to right, #3b82f6, #2563eb);
@@ -66,7 +58,6 @@
   }
   
   .mini-calendar {
-     
     border-radius: 0.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 20px;
@@ -96,7 +87,6 @@
   .mini-agenda li {
     margin-bottom: 0.5rem;
   }
-  
   
   .cale {
     flex: 1;
@@ -133,4 +123,9 @@
       color: white;
       background-color: rgb(204, 204, 204);
       border: none;
+  }
+
+  .atras{
+    width: 40px;
+    height: 40px;
   }

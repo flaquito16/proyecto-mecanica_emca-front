@@ -1,9 +1,11 @@
 .truck{
-    display: flex;
+    
     margin: 0;
     padding: 0;
     width: 100%;
     max-height: 100%;
+    display: flex;
+    
 }
 
 .div-nav{
@@ -14,10 +16,15 @@
 .div-general{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 83%;
     padding: 0px 0px 0px 25px;
+    justify-content: flex-end;
 }
-
+.b{
+    background-color: black;
+    width: 50px;
+    height: 50px;
+}
 .name-meca{
     font-size: 25px;
 }
@@ -29,13 +36,15 @@
 }
 
 .filter-truck{
+    width: 96%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .select-filter{
-    width: 15%;
+    width: 100px;
     height: 80%;
     border: 2px solid #ccc;
     border-radius: 5px;
@@ -49,7 +58,7 @@
 
 .div-search{
     display: flex;
-    margin: -5px 0px 0px 800px;
+   
 }
 
 .search-box {
@@ -146,6 +155,7 @@ thead{
 .content-form-truck{
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -165,11 +175,11 @@ thead{
 .modal-buttons {
     display: flex;
     justify-content: space-around;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .modal-btn {
-    padding: 15px 20px;
+    padding: 6px 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -179,10 +189,14 @@ thead{
 .modal-btn.save {
     background: #4192fb;
     color: white;
+
 }
 
 .modal-btn.cancel {
     background: #ccc;
+    font-size: 15px;
+    margin: 0 0 0 30px;
+
 }
 
 .modal-new-historial{
@@ -248,3 +262,91 @@ thead{
     width: auto;
 }
 
+/*  */
+.modal-overlay2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+.modal-content2 {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 900px;
+    height: 600px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    flex-direction: row;
+}
+.content-form-truck2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+}
+.p-new-truck2{
+    padding: 0px 8px 0px 75px;
+}
+
+
+@media(max-width:1279px){
+
+    .name-meca{
+        font-size: 20px;
+    }
+    .select-filter{
+        width: 90px;
+        height: 70%;
+        font-size: 12px;
+    }
+
+    .filter-img{
+        width: 20px;
+        height: 25px;
+        padding: 0px 10px 0px 0px;
+    }
+
+    .p-num{
+        font-size: 15px;
+        margin-top: 5px;
+        padding: 0px 0px 0px 15px;
+    }
+    .search-input {
+
+        font-size: 13px;
+
+    }
+
+    .search-box {
+
+        width: 220px;
+        padding: 0;
+        height: 27px;
+
+
+    }
+    
+    .new-btn{
+
+        padding: 0 15px;
+        font-size: 13px;
+        height: 30px;
+
+    }
+
+    .details-table td, .details-table th {
+       
+        height: 34px;
+        font-size: 12px;
+    }
+    .details-table {
+        width: 96%;
+    }
+}

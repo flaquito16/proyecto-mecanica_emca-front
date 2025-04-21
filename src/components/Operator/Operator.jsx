@@ -2,8 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Nav } from '../Nav/Nav';
 import { useNavigate } from 'react-router-dom';
+import "./Operator.css"
+import { useFromContext } from '../../Context/FromContext';
+import { User } from '../User/User';
 
 export const Operator = () => {
+    const {currentUser} = useFromContext();
     const [nombre, setNombre] = useState('')
     const [message, setMessage] = useState('')
     const [showModal, setShowModal] = useState(false);
@@ -83,12 +87,17 @@ export const Operator = () => {
         </strong>
         <div className='filter-truck'>
       <strong>
-        <p className='p-num'>8</p>
+        <p className='p-num'>{formDeatils.length}</p>
       </strong>
+      {currentUser && (
+        <>
       <div className='div-search'>
         <button className='new-btn' onClick={handleCLick}>Nuevo</button>
       </div>
+        </>
+      )}
     </div> 
+    <User></User>
     <div className='main-truck'>
       {loading ? ( 
       <p>Cargando...</p> ) : (
@@ -97,16 +106,24 @@ export const Operator = () => {
         <thead>
           <tr>
             <th>Nombre de los operadores</th>
+            {currentUser && (
+              <>
             <th>Acciones</th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
      {formDeatils?.map((opera) => (
          <tr key={opera.id_operator}>
         <td>{opera.nombreO}</td>
+        {currentUser && (
+          <>
         <td>
         <button className='new-btn'>Ver más</button>
       </td>
+          </>
+        )}
     </tr>
   ))}
 </tbody>
@@ -119,13 +136,13 @@ export const Operator = () => {
     </div>
     
   {showModal && (
-    <div className='modal-overlay'>
+    <div className='modal-overlay2'>
       <form action="" onSubmit={handleSubmit}>
-      <div className='modal-content'>
+      <div className='modal-content4'>
         <h1>Agregar Un Nuevo Operario</h1>
           <h3>Detalles</h3>
-        <div className='content-form-truck'>
-        <p className='p-new-truck'>Nombre del operario: </p>
+        <div className='content-form-truck2'>
+        <p className='p-new-truck2'>Nombre del operario: </p>
         <input type='text' placeholder='Nombre del operario' className='modal-input' value={nombre} onChange={(e) => setNombre(e.target.value)}/>
         </div>
         <div className='modal-buttons'>

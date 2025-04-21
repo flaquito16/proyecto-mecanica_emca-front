@@ -3,8 +3,10 @@ import './Details.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { Nav } from '../Nav/Nav';
+import { useFromContext } from '../../Context/FromContext';
 
 export const Details = () => {
+    const {currentUser} = useFromContext();
     const {id} = useParams();
     const [details, setDetails] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -63,7 +65,7 @@ export const Details = () => {
     const handleSave = async () => {
         console.log("Datos a enviar: ", edite);
         
-        const { id_truck, workOrders, truck, deletedAt, ...filterEdite } = edite;
+        const { id_truck, workOrders, truck, sections, deletedAt, ...filterEdite } = edite;
 
         
         console.log("Datos filtrados a enviar: ", filterEdite);
@@ -86,7 +88,6 @@ export const Details = () => {
         } catch (error) {
             console.error("Error al guardar los cambios:", error.response?.data || error.message);
             alert("Error al guardar los cambios: " + (error.response?.data?.message || error.message));
-
         }
     }
 
@@ -103,7 +104,9 @@ export const Details = () => {
     }
 
   return (
-     <div className='details'>
+      <div className='details'>
+         {currentUser && (
+            <>
         <div className='div-nav'>
             <Nav/>
         </div>
@@ -331,6 +334,8 @@ export const Details = () => {
                         </div>
                  </div>
         )}
+            </>
+         )}
     </div>
   )
 }

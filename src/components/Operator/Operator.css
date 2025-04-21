@@ -1,0 +1,9 @@
+.modal-content4 {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    height: 300px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}

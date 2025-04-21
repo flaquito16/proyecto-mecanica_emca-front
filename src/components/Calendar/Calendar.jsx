@@ -12,6 +12,9 @@ import 'react-calendar/dist/Calendar.css';
 import 'dayjs/locale/es';
 import './Cale.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import atras from '../../assets/flecha-izquierda (1).png';
+// import { Nav } from '../Nav/Nav';
 
 dayjs.locale('es');
 
@@ -73,7 +76,7 @@ export const Cale = () => {
   
             return {
               ...work,
-              title: work.descripcion || 'Sin descripción',
+              title: work.tipoMantenimiento || 'Sin descripción',
               start,
               end,
             };
@@ -89,8 +92,6 @@ export const Cale = () => {
     fetchDetails();
   }, []);
   
-  
-  
   useEffect(() => {
     if (selectedDate) {
       setDate(selectedDate);
@@ -104,6 +105,11 @@ export const Cale = () => {
 
   return (
     <div className="calendar-container">
+      <div>
+        <Link to="/home">
+        <img className='atras' src={atras} alt="" />
+        </Link>
+      </div>
       <header className="calendar-header">
         <h3 >Calendario</h3>
       </header>
@@ -117,7 +123,7 @@ export const Cale = () => {
             <ul>
               {details.map((work) => (
                 <p key={work.id_workOrder}>
-                  <span>{dayjs(work.fechaInicio).format('DD/MM/YYYY')}</span>: {work.descripcion}
+                  <span>Fecha de inicio: {dayjs(work.fechaInicio).format('DD/MM/YYYY')}</span>: {work.tipoMantenimiento}
                 </p>
               ))}
             </ul>
@@ -130,7 +136,7 @@ export const Cale = () => {
             events={details}
             startAccessor="start"
             endAccessor="end"
-            style={{ height: 950 }}
+            style={{ height: 900 }}
             view={view}
             date={date}
             onView={setView}

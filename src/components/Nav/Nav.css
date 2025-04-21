@@ -48,7 +48,6 @@ li{
 li:hover{
     background-color: #abcba2; /* Cambia el color de fondo de manera suave */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  
 }
 
 .img-nav{
@@ -56,3 +55,23 @@ li:hover{
     height: 25px;
 }
 
+
+@media(max-width:1279px){
+    .name{
+        color: white;
+        text-align: center;
+        margin-top: 29px;
+        font-size: 16px;
+
+    }
+
+    .div-li-nav{
+
+        font-size: 12px;
+    }
+
+    .img-nav{
+        width: 20px;
+        height: 20px;
+    }
+}
