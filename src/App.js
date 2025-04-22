@@ -12,6 +12,7 @@ import { DetailsWork } from './components/DetailsWork/DetailsWork.jsx';
 import { Operator } from './components/Operator/Operator.jsx';
 import { Cale } from './components/Calendar/Calendar.jsx';
 import { Information } from './components/Information/Information.jsx';
+import { DetailsStock } from './components/DetailsStock/DetailsStock.jsx';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       <Route path='/section' element={<Section/>}></Route>
       <Route path='/details/:id' element={<Details/>}></Route>
       <Route path='/detailsWork/:id' element={<DetailsWork/>}></Route>
+      <Route path='/detailsStock/:id' element={<DetailsStock/>}></Route>
       <Route path='/operator' element={<Operator/>}></Route>
       <Route path='/information' element={<Information/>}></Route>
     </Routes>

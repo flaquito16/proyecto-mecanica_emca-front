@@ -95,7 +95,6 @@ export const Truck = () => {
     }
   };
 
-
   const handleNewClick = () => {
     setShowModal(true);
   };

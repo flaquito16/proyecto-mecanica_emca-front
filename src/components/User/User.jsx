@@ -9,9 +9,10 @@ export const User = () => {
     <div>
         <h3>Usuario</h3>
         {currentUser ? (
-            <div>
-            <p>Nombre: {currentUser.nombre}</p>
-            <p>apellido: {currentUser.apellido}</p>
+            <div className='user'>
+            <strong className='user-name'>
+                {currentUser.nombre} {currentUser.apellido}
+            </strong>
             <button className='new-btn' onClick={logout}>Cerrar sesión</button>
             </div>
         ) : (

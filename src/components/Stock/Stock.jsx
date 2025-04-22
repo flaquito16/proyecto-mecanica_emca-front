@@ -3,7 +3,7 @@ import { Nav } from '../Nav/Nav'
 import filtro from '../../assets/filtrar.png';
 import './Stock.css'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFromContext } from '../../Context/FromContext';
 import { User } from '../User/User';
 
@@ -157,7 +157,9 @@ export const Stock = () => {
                     {currentUser && (
                       <>
                   <td>
+                    <Link to={`/detailsStock/${formDetail.id_stock}`}>
                     <button className='new-btn'>Ver más</button>
+                    </Link>
                   </td>
                       </>
                     ) }
